@@ -32,7 +32,7 @@ import {
   normalizeMessagesForModel,
 } from './message-normalization'
 import { buildNudgeToolSet } from './nudge-tools'
-iimport { buildSystemPromptWithWorkspace } from './promptWithWorkspace'
+import { buildSystemPromptWithWorkspace } from './promptWithWorkspace'
 import { createLanguageModel } from './provider-factory'
 import { buildAgentReasoningConfig } from './reasoning-config'
 import { buildBrowserToolSet } from './tool-adapter'
