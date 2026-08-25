@@ -32,7 +32,7 @@ import {
   normalizeMessagesForModel,
 } from './message-normalization'
 import { buildNudgeToolSet } from './nudge-tools'
-import { buildSystemPrompt } from './prompt'
+iimport { buildSystemPromptWithWorkspace } from './promptWithWorkspace'
 import { createLanguageModel } from './provider-factory'
 import { buildAgentReasoningConfig } from './reasoning-config'
 import { buildBrowserToolSet } from './tool-adapter'
@@ -300,18 +300,18 @@ export class AiSdkAgent {
     ) {
       excludeSections.push('nudges')
     }
-    const instructions = buildSystemPrompt({
-      userSystemPrompt: config.resolvedConfig.userSystemPrompt,
-      exclude: excludeSections,
-      isScheduledTask: config.resolvedConfig.isScheduledTask,
-      scheduledTaskPageId: config.browserContext?.activeTab?.pageId,
-      workspaceDir: workspaceDirForPrompt,
-      chatMode: config.resolvedConfig.chatMode,
-      connectedApps: config.browserContext?.enabledMcpServers,
-      declinedApps: config.resolvedConfig.declinedApps,
-      origin: config.resolvedConfig.origin,
-      generatedOutputReadAvailable: 'filesystem_read' in filesystemTools,
-    })
+  const instructions = buildSystemPromptWithWorkspace({
+  userSystemPrompt: config.resolvedConfig.userSystemPrompt,
+  exclude: excludeSections,
+  isScheduledTask: config.resolvedConfig.isScheduledTask,
+  scheduledTaskPageId: config.browserContext?.activeTab?.pageId,
+  workspaceDir: workspaceDirForPrompt,
+  chatMode: config.resolvedConfig.chatMode,
+  connectedApps: config.browserContext?.enabledMcpServers,
+  declinedApps: config.resolvedConfig.declinedApps,
+  origin: config.resolvedConfig.origin,
+  generatedOutputReadAvailable: 'filesystem_read' in filesystemTools,
+})
 
     // Configure compaction for context window management
     const compactionPrepareStep = createCompactionPrepareStep({
